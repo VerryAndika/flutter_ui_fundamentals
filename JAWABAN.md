@@ -1,7 +1,6 @@
 # Jawaban Worksheet Pertemuan 4 – Flutter UI Fundamentals
 
-> Sesuaikan dengan bahasa Anda sendiri sebelum dikumpulkan. Ganti `NIM_ANDA`
-> di `lib/identity.dart` dan `assets/data/student_data.json`.
+> Sesuaikan dengan bahasa Anda sendiri sebelum dikumpulkan.
 
 ## Peta tahap → file
 
@@ -21,9 +20,15 @@ Field tambahan JSON (Tahap 14): `student.motto` dan `courses[].progress`
 (ditampilkan sebagai kutipan di kartu profil dan progress bar di tiap materi).
 
 ## Tahap 1 – Eksperimen Hot Reload
-Hot Reload menyuntikkan kode baru ke aplikasi yang sedang berjalan dalam ±1 detik
-dan state (misalnya teks di TextField) tetap dipertahankan. Stop lalu run ulang
-membangun ulang aplikasi dari awal: lebih lama dan semua state kembali ke nilai awal.
+Diuji dengan `flutter run -d chrome` (mode debug) di halaman `/tahap1`:
+1. Tombol + ditekan 3 kali → counter **3**.
+2. Teks `You have pushed the button this many times:` diubah, lalu **hot reload**
+   (±1,5 detik): teks baru langsung tampil dan counter **tetap 3** (state dipertahankan).
+3. **Hot restart** (±1,2 detik): aplikasi dijalankan ulang dari `main()` dan counter
+   **kembali 0**. Stop lalu `flutter run` ulang juga mereset state, tetapi jauh lebih
+   lama karena aplikasi dikompilasi dan dibuka ulang.
+
+Bukti: `docs/screenshots/hr_1_before.png`, `hr_2_after_reload.png`, `hr_3_after_restart.png`.
 
 ## Tahap 2 – Pertanyaan Pemahaman
 1. **Fungsi `main()`**: titik masuk program; fungsi pertama yang dijalankan saat aplikasi dibuka.
@@ -60,8 +65,9 @@ dan berukuran konsisten, sedangkan `Image.asset` hanya menampilkan gambar apa ad
 - `center`: semua item berkumpul di tengah tanpa jarak tambahan.
 
 ## Tahap 15 – Debugging
-**Kasus A**: `Text` di dalam `Row` diberi lebar tak terbatas, sehingga teks panjang
-melebihi lebar layar (RenderFlex overflow). Membungkus `Text` dengan `Expanded`
+**Kasus A**: kode asli worksheet ada di route `/tahap15-overflow`; pada mode debug
+muncul garis kuning-hitam *RIGHT OVERFLOWED* (`t15_overflow.png`). `Text` di dalam
+`Row` diberi lebar tak terbatas, sehingga teks panjang melebihi lebar layar. Membungkus `Text` dengan `Expanded`
 membuat Text hanya mendapat sisa lebar setelah Icon dan SizedBox, sehingga teks
 otomatis turun baris.
 
@@ -70,8 +76,10 @@ otomatis turun baris.
 2. Folder sudah didaftarkan di `pubspec.yaml` dengan indentasi YAML yang benar.
 3. Sudah menjalankan `flutter pub get` dan **restart penuh** (bukan hot reload).
 
-**Kasus C**: ubah `studentDataPath` di `lib/services/student_service.dart`
-(misal jadi `student_dat.json`). Error state membuat aplikasi tetap tampil dengan
+**Kasus C**: `studentDataPath` di `lib/services/student_service.dart` diubah
+sementara menjadi `student_dat.json` lalu hot restart; dashboard menampilkan
+*Gagal memuat data: Unable to load asset* (`t15_error.png`). Setelah path
+dikembalikan dan hot restart lagi, data tampil normal (`t15_fixed.png`). Error state membuat aplikasi tetap tampil dengan
 pesan yang jelas (plus tombol *Coba lagi*) alih-alih crash atau loading tanpa akhir,
 sehingga pengguna dan developer tahu apa yang salah.
 

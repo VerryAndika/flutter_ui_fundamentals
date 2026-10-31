@@ -24,7 +24,8 @@ langsung lewat route, misalnya `/#/tahap5` saat dijalankan di web.
 | `/tahap10`, `/tahap11` | List dari `List<Map<String, dynamic>>` |
 | `/tahap12`, `/tahap13` | JSON statik, `late` + `FutureBuilder` |
 | `/` | Tahap 14 – Learning Dashboard |
-| `/tahap15`, `/tahap15-error` | Debugging overflow & error state |
+| `/tahap15-overflow` | Tahap 15 Kasus A sebelum diperbaiki (overflow, terlihat di mode debug) |
+| `/tahap15` | Tahap 15 Kasus A sesudah diperbaiki dengan `Expanded` |
 
 Jawaban pertanyaan worksheet ada di [JAWABAN.md](JAWABAN.md), screenshot bukti
 di [docs/screenshots](docs/screenshots).

@@ -55,6 +55,5 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/tahap13': (_) => const Tahap13Page(),
   '/latihan': (_) => const PracticePage(),
   '/tahap15': (_) => const DebuggingPage(),
-  '/tahap15-error': (_) =>
-      const DashboardPage(dataPath: 'assets/data/student_dat.json'),
+  '/tahap15-overflow': (_) => const OverflowDemoPage(),
 };

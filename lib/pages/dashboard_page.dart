@@ -11,9 +11,7 @@ import 'topics_page.dart';
 
 // Tahap 13 & 14: Learning Dashboard dari JSON statik.
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({super.key, this.dataPath = studentDataPath});
-
-  final String dataPath;
+  const DashboardPage({super.key});
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
@@ -26,12 +24,12 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    studentFuture = loadStudentData(widget.dataPath);
+    studentFuture = loadStudentData();
   }
 
   void _reload() {
     setState(() {
-      studentFuture = loadStudentData(widget.dataPath);
+      studentFuture = loadStudentData();
     });
   }
 
