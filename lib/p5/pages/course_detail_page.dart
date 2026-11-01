@@ -31,6 +31,16 @@ class CourseDetailPage extends StatelessWidget {
                   _info(Icons.school, 'SKS', '${course['credits']}'),
                   _info(Icons.flag, 'Status', course['status'] as String),
                   _info(Icons.timelapse, 'Progress', '${course['progress']}%'),
+                  const SizedBox(height: 24),
+                  // Tahap 9: kembali sambil mengirim hasil true.
+                  SizedBox(
+                    width: double.infinity,
+                    child: FilledButton.icon(
+                      icon: const Icon(Icons.favorite),
+                      label: const Text('Pilih sebagai Favorite'),
+                      onPressed: () => Navigator.pop(context, true),
+                    ),
+                  ),
                 ],
               ),
             ),
