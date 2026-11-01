@@ -10,6 +10,7 @@ import 'stages/tahap06_scroll.dart';
 import 'stages/tahap07_navigation.dart';
 import 'stages/tahap08_course_list.dart';
 import 'stages/tahap12_interaction.dart';
+import 'stages/tahap16_debugging.dart';
 import 'widgets/feedback_form.dart';
 
 // Pertemuan 5 - Responsive Layout, Navigation & User Interaction.
@@ -32,4 +33,13 @@ final Map<String, WidgetBuilder> p5Routes = {
   '/p5/tahap13': (_) => const FeedbackPage(),
   '/p5/tahap14': (_) => const FeedbackPage(),
   '/p5/tahap15': (_) => const ResponsiveShell(),
+  '/p5/tahap16': (_) => const DebuggingHubPage(),
+  '/p5/kasus-a-error': (_) => const OverflowRowPage(fixed: false),
+  '/p5/kasus-a': (_) => const OverflowRowPage(fixed: true),
+  '/p5/kasus-b-error': (_) => const UnboundedListPage(fixed: false),
+  '/p5/kasus-b': (_) => const UnboundedListPage(fixed: true),
+  '/p5/kasus-c-error': (_) => const KeyboardFormPage(fixed: false),
+  '/p5/kasus-c': (_) => const KeyboardFormPage(fixed: true),
+  '/p5/kasus-d-error': (_) => const DoubleNavigationPage(fixed: false),
+  '/p5/kasus-d': (_) => const DoubleNavigationPage(fixed: true),
 };
