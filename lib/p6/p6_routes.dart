@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'courses_screen.dart';
 import 'stages/tahap01_local_shared.dart';
 import 'stages/tahap02_prop_drilling.dart';
 import 'stages/tahap03_lifting_state.dart';
@@ -24,4 +25,8 @@ final Map<String, WidgetBuilder> p6Routes = {
   '/p6/tahap8': (_) => const CourseModelPage(),
   '/p6/tahap9': (_) => const CourseServicePage(),
   '/p6/tahap10': (_) => const CourseRepositoryPage(),
+  '/p6/tahap11': (_) => Scaffold(
+    appBar: AppBar(title: const Text('P6 Tahap 11 - Async State')),
+    body: const CoursesScreen(),
+  ),
 };

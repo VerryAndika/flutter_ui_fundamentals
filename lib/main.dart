@@ -12,12 +12,16 @@ import 'pages/practice_page.dart';
 import 'pages/stage_json_pages.dart';
 import 'pages/stage_pages.dart';
 import 'pages/topics_page.dart';
+import 'repositories/course_repository.dart';
+import 'services/course_service.dart';
 
 void main() {
   // P6 Tahap 6: CourseProvider tersedia untuk seluruh widget tree.
   runApp(
     ChangeNotifierProvider(
-      create: (_) => CourseProvider(),
+      // Tahap 11: Provider -> Repository -> Service, dimuat sekali di awal.
+      create: (_) =>
+          CourseProvider(CourseRepository(CourseService()))..loadCourses(),
       child: const MyApp(),
     ),
   );

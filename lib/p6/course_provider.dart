@@ -1,8 +1,45 @@
 import 'package:flutter/foundation.dart';
 
+import '../models/course.dart';
+import '../repositories/course_repository.dart';
+
+enum CourseLoadStatus { initial, loading, success, error }
+
 // Tahap 5: state course dipisahkan ke ChangeNotifier.
+// Tahap 11: memuat data lewat repository dan menyimpan loading/error/data.
 class CourseProvider extends ChangeNotifier {
+  final CourseRepository repository;
+
+  CourseProvider(this.repository);
+
+  List<Course> courses = [];
+  bool isLoading = false;
+  String? error;
+  bool _loadedOnce = false;
+
   final Set<String> favorites = {};
+
+  CourseLoadStatus get status {
+    if (isLoading) return CourseLoadStatus.loading;
+    if (error != null) return CourseLoadStatus.error;
+    if (!_loadedOnce) return CourseLoadStatus.initial;
+    return CourseLoadStatus.success;
+  }
+
+  Future<void> loadCourses() async {
+    isLoading = true;
+    error = null;
+    notifyListeners();
+    try {
+      courses = await repository.getCourses();
+    } catch (e) {
+      error = e.toString();
+    } finally {
+      isLoading = false;
+      _loadedOnce = true;
+      notifyListeners();
+    }
+  }
 
   int get favoriteCount => favorites.length;
 
