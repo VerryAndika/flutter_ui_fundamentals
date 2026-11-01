@@ -8,6 +8,7 @@ import 'stages/tahap05_change_notifier.dart';
 import 'stages/tahap06_provider_setup.dart';
 import 'stages/tahap07_watch_read.dart';
 import 'stages/tahap08_model.dart';
+import 'stages/tahap09_service.dart';
 
 // Pertemuan 6 - State Management & Mobile Application Architecture.
 // Halaman latihan per tahap, mis. /#/p6/tahap1 di web.
@@ -20,4 +21,5 @@ final Map<String, WidgetBuilder> p6Routes = {
   '/p6/tahap6': (_) => const ProviderSetupPage(),
   '/p6/tahap7': (_) => const WatchReadPage(),
   '/p6/tahap8': (_) => const CourseModelPage(),
+  '/p6/tahap9': (_) => const CourseServicePage(),
 };
