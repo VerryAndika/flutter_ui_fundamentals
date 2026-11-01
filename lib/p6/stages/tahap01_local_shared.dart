@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../p5/widgets/identity_header.dart';
+import '../../widgets/identity_header.dart';
 
 // Tahap 1: identifikasi state pada Course Explorer.
 const List<(String, String, String)> courseExplorerStates = [

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../p5/widgets/identity_header.dart';
+import '../../widgets/identity_header.dart';
 
 const List<(String, String)> _courses = [
   ('MOB04', 'Navigation & Routing'),

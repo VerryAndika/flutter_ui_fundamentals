@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../p5/widgets/identity_header.dart';
+import '../../widgets/identity_header.dart';
 
 // Tahap 3: state "favorite" dimiliki parent (single source of truth).
 // Child hanya menerima nilai lewat constructor dan mengirim aksi lewat

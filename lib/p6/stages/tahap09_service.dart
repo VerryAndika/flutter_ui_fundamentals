@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/course.dart';
-import '../../p5/widgets/identity_header.dart';
+import '../../widgets/identity_header.dart';
 import '../../services/course_service.dart';
 
 // Tahap 9: uji CourseService secara langsung (sementara, sebelum Provider).

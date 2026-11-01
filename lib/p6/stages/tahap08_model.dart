@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/course.dart';
-import '../../p5/widgets/identity_header.dart';
+import '../../widgets/identity_header.dart';
 
 // Satu item JSON (sama seperti di assets/data/student_data.json).
 const Map<String, dynamic> sampleCourseJson = {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../p5/widgets/identity_header.dart';
-import 'course_card.dart';
-import 'course_provider.dart';
+import '../widgets/identity_header.dart';
+import '../widgets/course_card.dart';
+import '../providers/course_provider.dart';
 
-// Tahap 11: UI hanya membaca state provider (initial/loading/error/success).
+// P6 Tahap 11-12: screen (folder screens/) hanya membaca state provider (initial/loading/error/success).
 class CoursesScreen extends StatelessWidget {
   const CoursesScreen({super.key});
 

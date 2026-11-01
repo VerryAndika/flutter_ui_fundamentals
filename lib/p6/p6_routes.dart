@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'courses_screen.dart';
+import '../screens/courses_screen.dart';
 import 'stages/tahap01_local_shared.dart';
 import 'stages/tahap02_prop_drilling.dart';
 import 'stages/tahap03_lifting_state.dart';

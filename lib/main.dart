@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'identity.dart';
 import 'p5/p5_routes.dart';
 import 'p5/responsive_shell.dart';
-import 'p6/course_provider.dart';
+import 'providers/course_provider.dart';
 import 'p6/p6_routes.dart';
 import 'pages/dashboard_page.dart';
 import 'pages/debugging_page.dart';

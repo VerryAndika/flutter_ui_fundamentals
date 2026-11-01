@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../p5/widgets/identity_header.dart';
-import '../course_provider.dart';
+import '../../widgets/identity_header.dart';
+import '../../providers/course_provider.dart';
 
 // Tahap 6: membuktikan CourseProvider tersedia di widget tree.
 class ProviderSetupPage extends StatelessWidget {
