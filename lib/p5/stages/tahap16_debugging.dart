@@ -250,12 +250,19 @@ class _OpenedPageState extends State<_OpenedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Detail #$number')),
-      body: Center(
-        child: Text(
-          'Halaman detail ke-$number\n(total ter-push: $_openedDetail)',
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 18),
-        ),
+      body: Column(
+        children: [
+          const IdentityHeader(subtitle: 'Kasus D'),
+          Expanded(
+            child: Center(
+              child: Text(
+                'Halaman detail ke-$number\n(total ter-push: $_openedDetail)',
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 18),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

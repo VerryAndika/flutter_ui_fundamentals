@@ -60,9 +60,9 @@ yang butuh keputusan pengguna sebelum lanjut (konfirmasi kirim/hapus).
 
 ## Tahap 16
 - **A**: `Text` di `Row` mendapat lebar tak terbatas → overflow. `Expanded` memberi lebar sisa yang terbatas sehingga teks wrap.
-- **B**: `ListView` di `Column` tanpa `Expanded` → *Vertical viewport was given unbounded height* (dibuktikan di `test/widget_test.dart`). `Expanded` memberi tinggi terbatas.
+- **B**: `ListView` di `Column` tanpa `Expanded` → *Vertical viewport was given unbounded height* (terlihat di console Chrome `docs/p5/p16_b_console.png` dan dibuktikan di `test/widget_test.dart`). `Expanded` memberi tinggi terbatas.
 - **C**: form di bawah tanpa scroll → *BOTTOM OVERFLOWED* saat ruang vertikal berkurang; dibungkus `SingleChildScrollView`.
-- **D**: tiga klik cepat mem-push **3** halaman detail. Diperbaiki dengan flag `navigating` sehingga hanya **1** yang terbuka. Di kasus nyata: nonaktifkan tombol selama proses, atau abaikan tap saat navigasi/request sedang berjalan.
+- **D**: tiga klik cepat mem-push lebih dari satu halaman detail (3 pada percobaan pertama, 2 pada pengambilan ulang). Diperbaiki dengan flag `navigating` sehingga hanya **1** yang terbuka. Di kasus nyata: nonaktifkan tombol selama proses, atau abaikan tap saat navigasi/request sedang berjalan.
 
 ## G. Refleksi
 1. **MediaQuery vs LayoutBuilder**: MediaQuery membaca ukuran seluruh layar (dipakai di Tahap 2 dan kartu "Compact 411 dp" di Home); LayoutBuilder membaca constraints dari parent (dipakai di shell, grid course, dan Tahap 3) sehingga cocok untuk widget yang ruangnya lebih kecil dari layar, mis. area di samping NavigationRail.
