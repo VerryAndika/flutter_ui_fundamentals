@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_ui_fundamentals/identity.dart';
 import 'package:flutter_ui_fundamentals/main.dart';
+import 'package:flutter_ui_fundamentals/p5/widgets/feedback_form.dart';
+import 'package:flutter_ui_fundamentals/pages/dashboard_page.dart';
 import 'package:flutter_ui_fundamentals/pages/practice_page.dart';
 import 'package:flutter_ui_fundamentals/pages/topics_page.dart';
 
@@ -10,7 +12,7 @@ void main() {
   testWidgets('Dashboard memuat identitas dan materi dari JSON', (
     tester,
   ) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const MaterialApp(home: DashboardPage()));
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
 
     await tester.runAsync(
@@ -38,5 +40,38 @@ void main() {
   testWidgets('TopicsPage menghitung topik selesai', (tester) async {
     await tester.pumpWidget(const MaterialApp(home: TopicsPage()));
     expect(find.text('2 dari 4 topik selesai'), findsOneWidget);
+  });
+
+  testWidgets(
+    'Course Explorer: NavigationBar compact, NavigationRail expanded',
+    (tester) async {
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+
+      tester.view.physicalSize = const Size(400, 800);
+      await tester.pumpWidget(const MyApp());
+      expect(find.byType(NavigationBar), findsOneWidget);
+      expect(find.byType(NavigationRail), findsNothing);
+      await tester.tap(find.text('Profile'));
+      await tester.pumpAndSettle();
+      expect(find.text('Kelas 5 IKI'), findsOneWidget);
+
+      tester.view.physicalSize = const Size(1000, 800);
+      await tester.pumpAndSettle();
+      expect(find.byType(NavigationRail), findsOneWidget);
+      expect(find.byType(NavigationBar), findsNothing);
+      // Halaman aktif tetap Profile setelah layout berubah.
+      expect(find.text('Kelas 5 IKI'), findsOneWidget);
+    },
+  );
+
+  testWidgets('Form feedback menolak komentar kurang dari 5 karakter', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const MaterialApp(home: FeedbackPage()));
+    await tester.enterText(find.byType(TextFormField).last, 'ok');
+    await tester.tap(find.text('Kirim Feedback'));
+    await tester.pump();
+    expect(find.text('Komentar minimal 5 karakter'), findsOneWidget);
   });
 }

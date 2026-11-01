@@ -52,7 +52,11 @@ Widget _panel(String label, IconData icon) {
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [Icon(icon, size: 32), const SizedBox(height: 8), Text(label)],
+        children: [
+          Icon(icon, size: 32),
+          const SizedBox(height: 8),
+          Text(label),
+        ],
       ),
     ),
   );

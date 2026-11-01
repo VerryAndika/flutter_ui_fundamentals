@@ -46,7 +46,10 @@ class FlexibleWrapPage extends StatelessWidget {
             const SizedBox(height: 8),
             Row(
               children: [
-                Expanded(flex: 2, child: buildBox('A (flex 2)', Colors.indigo.shade100)),
+                Expanded(
+                  flex: 2,
+                  child: buildBox('A (flex 2)', Colors.indigo.shade100),
+                ),
                 const SizedBox(width: 8),
                 Expanded(child: buildBox('B (flex 1)', Colors.teal.shade100)),
               ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'identity.dart';
 import 'p5/p5_routes.dart';
+import 'p5/responsive_shell.dart';
 import 'pages/dashboard_page.dart';
 import 'pages/debugging_page.dart';
 import 'pages/practice_page.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Learning Dashboard - $studentId - $studentName',
+      title: 'Course Explorer - $studentId - $studentName',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
@@ -38,10 +39,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Halaman utama = Learning Dashboard (Tahap 14).
-// Route lain menyimpan hasil tiap tahap, mis. /#/tahap5 di web.
+// Halaman utama = Course Explorer (Pertemuan 5).
+// Learning Dashboard Pertemuan 4 tetap tersedia di /p4, dan route lain
+// menyimpan hasil tiap tahap, mis. /#/tahap5 atau /#/p5/tahap3 di web.
 final Map<String, WidgetBuilder> appRoutes = {
-  '/': (_) => const DashboardPage(),
+  '/': (_) => const ResponsiveShell(),
+  '/p4': (_) => const DashboardPage(),
   '/tahap1': (_) => const Tahap1Page(),
   '/tahap2': (_) => const Tahap2Page(),
   '/tahap4': (_) => const Tahap4Page(),

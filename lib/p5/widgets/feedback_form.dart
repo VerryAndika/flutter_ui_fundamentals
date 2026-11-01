@@ -63,9 +63,8 @@ class _FeedbackFormState extends State<FeedbackForm> {
           '${nimController.text.trim()} - ${nameController.text.trim()}: '
           '${commentController.text.trim()}';
     });
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Data berhasil disimpan')),
-    );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Data berhasil disimpan')));
   }
 
   @override
