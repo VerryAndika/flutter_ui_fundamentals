@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'responsive_shell.dart';
 import 'stages/tahap01_hardcoded.dart';
 import 'stages/tahap02_mediaquery.dart';
 import 'stages/tahap03_layoutbuilder.dart';
@@ -23,4 +24,5 @@ final Map<String, WidgetBuilder> p5Routes = {
   '/p5/tahap7': (_) => const NavHomePage(),
   '/p5/tahap8': (_) => const CourseListPage(),
   '/p5/tahap9': (_) => const CourseListPage(),
+  '/p5/tahap10': (_) => const ResponsiveShell(),
 };
