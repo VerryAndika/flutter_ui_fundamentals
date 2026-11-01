@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_ui_fundamentals/identity.dart';
-import 'package:flutter_ui_fundamentals/main.dart';
+import 'package:flutter_ui_fundamentals/p5/responsive_shell.dart';
 import 'package:flutter_ui_fundamentals/p5/stages/tahap16_debugging.dart';
 import 'package:flutter_ui_fundamentals/p5/widgets/feedback_form.dart';
 import 'package:flutter_ui_fundamentals/pages/dashboard_page.dart';
@@ -50,7 +50,7 @@ void main() {
       addTearDown(tester.view.reset);
 
       tester.view.physicalSize = const Size(400, 800);
-      await tester.pumpWidget(const MyApp());
+      await tester.pumpWidget(const MaterialApp(home: ResponsiveShell()));
       expect(find.byType(NavigationBar), findsOneWidget);
       expect(find.byType(NavigationRail), findsNothing);
       await tester.tap(find.text('Profile'));

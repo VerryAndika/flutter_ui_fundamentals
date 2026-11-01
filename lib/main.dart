@@ -13,6 +13,7 @@ import 'pages/stage_json_pages.dart';
 import 'pages/stage_pages.dart';
 import 'pages/topics_page.dart';
 import 'repositories/course_repository.dart';
+import 'screens/home_shell.dart';
 import 'services/course_service.dart';
 
 void main() {
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Course Explorer - $studentId - $studentName',
+      title: 'Course Explorer v2 - $studentId - $studentName',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: true,
@@ -52,11 +53,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Halaman utama = Course Explorer (Pertemuan 5).
-// Learning Dashboard Pertemuan 4 tetap tersedia di /p4, dan route lain
+// Halaman utama = Course Explorer v2 (Pertemuan 6). Course Explorer
+// Pertemuan 5 di /p5, Learning Dashboard Pertemuan 4 di /p4, dan route lain
 // menyimpan hasil tiap tahap, mis. /#/tahap5 atau /#/p5/tahap3 di web.
 final Map<String, WidgetBuilder> appRoutes = {
-  '/': (_) => const ResponsiveShell(),
+  '/': (_) => const HomeShell(),
+  '/p5': (_) => const ResponsiveShell(),
   '/p4': (_) => const DashboardPage(),
   '/tahap1': (_) => const Tahap1Page(),
   '/tahap2': (_) => const Tahap2Page(),

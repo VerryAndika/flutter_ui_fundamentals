@@ -52,19 +52,32 @@ class CoursesScreen extends StatelessWidget {
           ),
         ),
       ),
-      CourseLoadStatus.success => ListView.builder(
-        padding: const EdgeInsets.all(12),
-        itemCount: provider.courses.length,
-        itemBuilder: (context, i) {
-          final course = provider.courses[i];
-          return CourseCard(
-            course: course,
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => CourseDetailScreen(course: course),
-              ),
+      // Tahap 14: 1 kolom (compact), 2 (medium), 3 (expanded).
+      CourseLoadStatus.success => LayoutBuilder(
+        builder: (context, constraints) {
+          final w = constraints.maxWidth;
+          final columns = w < 600 ? 1 : (w < 840 ? 2 : 3);
+          return GridView.builder(
+            padding: const EdgeInsets.all(12),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: columns,
+              mainAxisExtent: 88,
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 4,
             ),
+            itemCount: provider.courses.length,
+            itemBuilder: (context, i) {
+              final course = provider.courses[i];
+              return CourseCard(
+                course: course,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => CourseDetailScreen(course: course),
+                  ),
+                ),
+              );
+            },
           );
         },
       ),
