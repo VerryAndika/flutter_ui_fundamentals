@@ -1,6 +1,6 @@
 # Flutter UI Fundamentals – Learning Dashboard & Course Explorer
 
-Praktikum Pertemuan 4 dan 5 Pemrograman Mobile.
+Praktikum Pertemuan 4, 5, dan 6 Pemrograman Mobile.
 
 **2415051065 - I Kadek Very Andika** (5 IKI)
 
@@ -31,3 +31,8 @@ langsung lewat route, misalnya `/#/tahap5` saat dijalankan di web.
 
 Jawaban worksheet: [JAWABAN.md](JAWABAN.md) (P4) dan [JAWABAN_P5.md](JAWABAN_P5.md) (P5).
 Screenshot bukti: [docs/screenshots](docs/screenshots) dan [docs/p5](docs/p5).
+
+## Pertemuan 6 – State Management & Architecture
+
+Project Pertemuan 5 dilanjutkan dan direfactor menjadi **Course Explorer v2**
+(Provider, model, service, repository). Latihan per tahap ada di route `/p6/tahapN`.
