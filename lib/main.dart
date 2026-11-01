@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'identity.dart';
+import 'p5/p5_routes.dart';
 import 'pages/dashboard_page.dart';
 import 'pages/debugging_page.dart';
 import 'pages/practice_page.dart';
@@ -56,4 +57,5 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/latihan': (_) => const PracticePage(),
   '/tahap15': (_) => const DebuggingPage(),
   '/tahap15-overflow': (_) => const OverflowDemoPage(),
+  ...p5Routes,
 };
