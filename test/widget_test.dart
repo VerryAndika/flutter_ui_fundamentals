@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_ui_fundamentals/identity.dart';
 import 'package:flutter_ui_fundamentals/main.dart';
+import 'package:flutter_ui_fundamentals/p5/stages/tahap16_debugging.dart';
 import 'package:flutter_ui_fundamentals/p5/widgets/feedback_form.dart';
 import 'package:flutter_ui_fundamentals/pages/dashboard_page.dart';
 import 'package:flutter_ui_fundamentals/pages/practice_page.dart';
@@ -74,4 +75,27 @@ void main() {
     await tester.pump();
     expect(find.text('Komentar minimal 5 karakter'), findsOneWidget);
   });
+
+  testWidgets(
+    'Kasus B: ListView di Column tanpa Expanded -> unbounded height',
+    (tester) async {
+      final errors = <FlutterErrorDetails>[];
+      final previous = FlutterError.onError;
+      FlutterError.onError = errors.add;
+      await tester.pumpWidget(
+        const MaterialApp(home: UnboundedListPage(fixed: false)),
+      );
+      FlutterError.onError = previous;
+      expect(
+        errors.first.exceptionAsString(),
+        contains('Vertical viewport was given unbounded height'),
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: UnboundedListPage(fixed: true)),
+      );
+      expect(tester.takeException(), isNull);
+      expect(find.text('Item 1'), findsOneWidget);
+    },
+  );
 }
