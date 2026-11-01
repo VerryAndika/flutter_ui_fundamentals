@@ -16,7 +16,7 @@ List<Widget> _profileContent() => [
         ),
       ),
     ),
-  for (var i = 1; i <= 4; i++)
+  for (var i = 1; i <= 7; i++)
     Card(
       child: ListTile(
         leading: const Icon(Icons.star_outline),
