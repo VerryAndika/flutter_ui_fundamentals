@@ -9,8 +9,8 @@ import 'stages/tahap04_flexible_wrap.dart';
 // Setiap tahap didaftarkan di sini sehingga dapat dibuka langsung,
 // mis. /#/p5/tahap2 di web atau fuf://app/p5/tahap2 di Android.
 final Map<String, WidgetBuilder> p5Routes = {
-  'C:/Program Files/Git/p5/tahap1': (_) => const HardCodedWidthPage(),
-  'C:/Program Files/Git/p5/tahap2': (_) => const MediaQueryPage(),
-  'C:/Program Files/Git/p5/tahap3': (_) => const LayoutBuilderPage(),
-  'C:/Program Files/Git/p5/tahap4': (_) => const FlexibleWrapPage(),
+  '/p5/tahap1': (_) => const HardCodedWidthPage(),
+  '/p5/tahap2': (_) => const MediaQueryPage(),
+  '/p5/tahap3': (_) => const LayoutBuilderPage(),
+  '/p5/tahap4': (_) => const FlexibleWrapPage(),
 };
