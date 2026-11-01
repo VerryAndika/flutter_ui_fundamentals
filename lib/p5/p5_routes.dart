@@ -25,4 +25,5 @@ final Map<String, WidgetBuilder> p5Routes = {
   '/p5/tahap8': (_) => const CourseListPage(),
   '/p5/tahap9': (_) => const CourseListPage(),
   '/p5/tahap10': (_) => const ResponsiveShell(),
+  '/p5/tahap11': (_) => const ResponsiveShell(),
 };
