@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/identity_header.dart';
+import 'course_detail_screen.dart';
 import '../widgets/course_card.dart';
 import '../providers/course_provider.dart';
 
@@ -54,7 +55,18 @@ class CoursesScreen extends StatelessWidget {
       CourseLoadStatus.success => ListView.builder(
         padding: const EdgeInsets.all(12),
         itemCount: provider.courses.length,
-        itemBuilder: (context, i) => CourseCard(course: provider.courses[i]),
+        itemBuilder: (context, i) {
+          final course = provider.courses[i];
+          return CourseCard(
+            course: course,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => CourseDetailScreen(course: course),
+              ),
+            ),
+          );
+        },
       ),
     };
     return Column(

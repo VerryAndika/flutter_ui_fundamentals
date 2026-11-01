@@ -43,6 +43,10 @@ class CourseProvider extends ChangeNotifier {
 
   int get favoriteCount => favorites.length;
 
+  // Tahap 13: dipakai FavoritesScreen.
+  List<Course> get favoriteCourses =>
+      courses.where((c) => favorites.contains(c.code)).toList();
+
   bool isFavorite(String code) => favorites.contains(code);
 
   void toggleFavorite(String code) {
