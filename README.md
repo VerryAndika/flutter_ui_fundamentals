@@ -36,3 +36,21 @@ Screenshot bukti: [docs/screenshots](docs/screenshots) dan [docs/p5](docs/p5).
 
 Project Pertemuan 5 dilanjutkan dan direfactor menjadi **Course Explorer v2**
 (Provider, model, service, repository). Latihan per tahap ada di route `/p6/tahapN`.
+
+### Arsitektur Course Explorer v2
+
+Arah dependency: **Screen/Widget → Provider → Repository → Service → JSON asset**.
+
+| Folder | Tanggung jawab |
+|---|---|
+| `lib/models/` | Representasi data (`Course` + `Course.fromJson`). Tidak bergantung pada Flutter. |
+| `lib/services/` | Detail akses data: membaca `assets/data/student_data.json` dengan `rootBundle` + `jsonDecode` (`CourseService`). |
+| `lib/repositories/` | Abstraksi sumber data untuk provider (`CourseRepository.getCourses()`); bisa diganti API tanpa mengubah UI. |
+| `lib/providers/` | State + aksi (`CourseProvider`: courses, loading/error, favorites, `notifyListeners`). Tidak berisi widget atau `BuildContext`. |
+| `lib/screens/` | Halaman: `HomeShell` (navigasi responsif), Home, Courses, Detail, Favorites, Profile. Hanya membaca provider. |
+| `lib/widgets/` | Komponen UI yang dipakai ulang (`CourseCard`, `IdentityHeader`). |
+| `lib/p6/stages/` | Latihan per tahap Pertemuan 6 (route `/p6/tahapN`). |
+| `lib/p5/`, `lib/pages/` | Hasil Pertemuan 5 dan 4 yang dipertahankan sebagai riwayat (route `/p5`, `/p4`). |
+
+Audit (Tahap 16): screen/widget/provider tidak memanggil `rootBundle`/`jsonDecode`;
+model, service, repository, dan provider tidak mengimpor widget maupun `BuildContext`.
