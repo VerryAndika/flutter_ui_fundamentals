@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../identity.dart';
 
 // Tahap 13: Form + TextFormField + GlobalKey<FormState>.
+// Tahap 14: AlertDialog, loading, dan SnackBar.
 class FeedbackForm extends StatefulWidget {
   const FeedbackForm({super.key});
 
@@ -16,6 +17,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
   final nimController = TextEditingController(text: studentId);
   final commentController = TextEditingController();
   String? submitted;
+  bool sending = false;
 
   @override
   void dispose() {
@@ -30,13 +32,40 @@ class _FeedbackFormState extends State<FeedbackForm> {
     return null;
   }
 
-  void _submit() {
-    if (!formKey.currentState!.validate()) return;
+  // Tahap 14: konfirmasi (Dialog) -> loading -> SnackBar.
+  Future<void> _submit() async {
+    if (sending || !formKey.currentState!.validate()) return;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Konfirmasi'),
+        content: const Text('Kirim feedback ini?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Batal'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Kirim'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+
+    setState(() => sending = true);
+    await Future<void>.delayed(const Duration(milliseconds: 1500));
+    if (!mounted) return;
     setState(() {
+      sending = false;
       submitted =
           '${nimController.text.trim()} - ${nameController.text.trim()}: '
           '${commentController.text.trim()}';
     });
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Data berhasil disimpan')),
+    );
   }
 
   @override
@@ -81,9 +110,16 @@ class _FeedbackFormState extends State<FeedbackForm> {
           ),
           const SizedBox(height: 12),
           FilledButton.icon(
-            icon: const Icon(Icons.send),
-            label: const Text('Kirim Feedback'),
-            onPressed: _submit,
+            icon: sending
+                ? const SizedBox(
+                    width: 18,
+                    height: 18,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.send),
+            label: Text(sending ? 'Mengirim...' : 'Kirim Feedback'),
+            // Tombol nonaktif selama proses agar tidak terkirim dua kali.
+            onPressed: sending ? null : _submit,
           ),
           if (submitted != null) ...[
             const SizedBox(height: 12),
