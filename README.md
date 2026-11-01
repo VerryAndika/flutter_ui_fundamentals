@@ -35,7 +35,7 @@ Screenshot bukti: [docs/screenshots](docs/screenshots) dan [docs/p5](docs/p5).
 ## Pertemuan 6 – State Management & Architecture
 
 Project Pertemuan 5 dilanjutkan dan direfactor menjadi **Course Explorer v2**
-(Provider, model, service, repository). Latihan per tahap ada di route `/p6/tahapN`.
+(Provider, model, service, repository). Latihan per tahap ada di route `/p6/tahapN`. Jawaban: [JAWABAN_P6.md](JAWABAN_P6.md), screenshot: [docs/p6](docs/p6).
 
 ### Arsitektur Course Explorer v2
 
