@@ -6,6 +6,7 @@ import 'stages/tahap03_layoutbuilder.dart';
 import 'stages/tahap04_flexible_wrap.dart';
 import 'stages/tahap05_grid.dart';
 import 'stages/tahap06_scroll.dart';
+import 'stages/tahap07_navigation.dart';
 
 // Pertemuan 5 - Responsive Layout, Navigation & User Interaction.
 // Setiap tahap didaftarkan di sini sehingga dapat dibuka langsung,
@@ -18,4 +19,5 @@ final Map<String, WidgetBuilder> p5Routes = {
   '/p5/tahap5': (_) => const ResponsiveGridPage(),
   '/p5/tahap6-noscroll': (_) => const ScrollBeforePage(),
   '/p5/tahap6': (_) => const ScrollAfterPage(),
+  '/p5/tahap7': (_) => const NavHomePage(),
 };
