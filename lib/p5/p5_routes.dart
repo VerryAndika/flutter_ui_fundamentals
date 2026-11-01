@@ -10,6 +10,7 @@ import 'stages/tahap06_scroll.dart';
 import 'stages/tahap07_navigation.dart';
 import 'stages/tahap08_course_list.dart';
 import 'stages/tahap12_interaction.dart';
+import 'widgets/feedback_form.dart';
 
 // Pertemuan 5 - Responsive Layout, Navigation & User Interaction.
 // Setiap tahap didaftarkan di sini sehingga dapat dibuka langsung,
@@ -28,4 +29,5 @@ final Map<String, WidgetBuilder> p5Routes = {
   '/p5/tahap10': (_) => const ResponsiveShell(),
   '/p5/tahap11': (_) => const ResponsiveShell(),
   '/p5/tahap12': (_) => const InteractionPage(),
+  '/p5/tahap13': (_) => const FeedbackPage(),
 };
