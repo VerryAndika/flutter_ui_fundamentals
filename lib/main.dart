@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'identity.dart';
 import 'p5/p5_routes.dart';
 import 'p5/responsive_shell.dart';
+import 'p6/course_provider.dart';
 import 'p6/p6_routes.dart';
 import 'pages/dashboard_page.dart';
 import 'pages/debugging_page.dart';
@@ -12,7 +14,13 @@ import 'pages/stage_pages.dart';
 import 'pages/topics_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  // P6 Tahap 6: CourseProvider tersedia untuk seluruh widget tree.
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => CourseProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
