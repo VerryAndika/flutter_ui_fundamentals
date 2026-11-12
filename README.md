@@ -118,3 +118,17 @@ final CourseDataSource dataSource = CourseSupabaseService(); // REST: CourseApiS
 Screen, provider, dan repository tidak berubah ketika sumber data diganti.
 Fitur: list/grid responsif, detail, tambah (form + validasi), edit (code read-only),
 hapus (dengan konfirmasi), refresh, loading/empty/error + retry, SnackBar, favorites (kunci `code`).
+
+### Keamanan (Tahap 17)
+
+- [x] Tidak ada `service_role` / secret key di source code — aplikasi hanya memakai *publishable key*.
+- [x] Tidak ada password/token pribadi di repository (password database Supabase tidak disimpan di repo).
+- [x] File `.env` diabaikan lewat `.gitignore`.
+- [x] Screenshot tidak menampilkan key lengkap (UI menampilkan key yang disamarkan).
+- [x] RLS aktif di tabel `courses`; policy permisif `anon` hanya untuk laboratorium.
+- [x] Validasi di form hanya membantu pengguna — backend tetap menegakkan aturan
+      (`UNIQUE(code)`, `CHECK(credits > 0)`, `CHECK(status in ...)`, RLS).
+
+Pesan error yang ditampilkan aplikasi: 404/endpoint salah (REST), tidak ada koneksi,
+format JSON tidak sesuai model, `23505` code duplikat, `23514` melanggar CHECK,
+`42501` ditolak RLS, dan update/delete yang tidak mengubah baris apa pun.

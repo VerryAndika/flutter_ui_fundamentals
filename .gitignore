@@ -46,3 +46,9 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# P7 Tahap 17: jangan commit secret/credential
+.env
+.env.*
+*.env
+supabase/.temp/
