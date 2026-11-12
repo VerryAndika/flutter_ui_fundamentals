@@ -41,6 +41,27 @@ class CourseProvider extends ChangeNotifier {
     }
   }
 
+  // P7 Tahap 6: true selama request tulis berjalan; dipakai UI untuk
+  // menonaktifkan tombol Simpan (mencegah submit ganda).
+  bool isSaving = false;
+
+  Future<T> _save<T>(Future<T> Function() action) async {
+    isSaving = true;
+    notifyListeners();
+    try {
+      final result = await action();
+      // Ganti isi list dengan data terbaru dari server (bukan menambah).
+      await loadCourses();
+      return result;
+    } finally {
+      isSaving = false;
+      notifyListeners();
+    }
+  }
+
+  Future<Course> createCourse(Course course) =>
+      _save(() => repository.createCourse(course));
+
   int get favoriteCount => favorites.length;
 
   // Tahap 13: dipakai FavoritesScreen.

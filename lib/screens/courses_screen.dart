@@ -6,6 +6,7 @@ import '../widgets/course_card.dart';
 import '../widgets/error_view.dart';
 import '../widgets/identity_header.dart';
 import 'course_detail_screen.dart';
+import 'course_form_screen.dart';
 
 // P6 Tahap 11-12: screen hanya membaca state provider.
 // P7 Tahap 5: state eksplisit loading / error (+retry) / empty / success,
@@ -86,14 +87,32 @@ class CoursesScreen extends StatelessWidget {
       );
     }
 
-    return Column(
+    return Stack(
       children: [
-        IdentityHeader(
-          subtitle:
-              '${provider.courses.length} course • '
-              '${provider.favoriteCount} favorite',
+        Column(
+          children: [
+            IdentityHeader(
+              subtitle:
+                  '${provider.courses.length} course • '
+                  '${provider.favoriteCount} favorite',
+            ),
+            Expanded(child: content),
+          ],
         ),
-        Expanded(child: content),
+        // P7 Tahap 6: buka form Create Course.
+        Positioned(
+          right: 16,
+          bottom: 16,
+          child: FloatingActionButton.extended(
+            heroTag: 'add-course',
+            icon: const Icon(Icons.add),
+            label: const Text('Tambah'),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const CourseFormScreen()),
+            ),
+          ),
+        ),
       ],
     );
   }

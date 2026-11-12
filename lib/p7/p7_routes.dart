@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../screens/course_form_screen.dart';
 import '../screens/courses_screen.dart';
 import 'stages/tahap02_http_get.dart';
 import 'stages/tahap03_model_json.dart';
@@ -13,4 +14,5 @@ final Map<String, WidgetBuilder> p7Routes = {
     appBar: AppBar(title: const Text('P7 Tahap 5 - Async State')),
     body: const CoursesScreen(),
   ),
+  '/p7/tahap6': (_) => const CourseFormScreen(),
 };
