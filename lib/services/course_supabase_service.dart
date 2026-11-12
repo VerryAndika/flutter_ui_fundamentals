@@ -28,7 +28,6 @@ class CourseSupabaseService implements CourseDataSource {
     return Course.fromJson(row);
   }
 
-  // Sementara, agar kelas tetap dapat dikompilasi:
 
   // P7 Tahap 14: UPDATE berdasarkan id.
   @override
@@ -36,6 +35,9 @@ class CourseSupabaseService implements CourseDataSource {
     await supabase.from('courses').update(course.toJson()).eq('id', id);
   }
 
+  // P7 Tahap 15: DELETE berdasarkan id.
   @override
-  Future<void> deleteCourse(int id) => throw UnimplementedError();
+  Future<void> deleteCourse(int id) async {
+    await supabase.from('courses').delete().eq('id', id);
+  }
 }
