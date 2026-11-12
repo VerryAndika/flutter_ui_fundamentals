@@ -78,3 +78,23 @@ Base URL (`apiBaseUrl`): `https://course-api-pearl.vercel.app` — API latihan d
 Field JSON resource course: `id` (int), `code` (string), `title` (string), `credits` (int),
 `status` (`planned`/`active`/`done`), `created_at` (timestamp ISO-8601).
 Error dikembalikan sebagai JSON `{"error": "...", "status": <kode>}`.
+
+### Database Supabase (Tahap 10–11)
+
+Project: **course-data-manager** — `https://vebwsoctgginxbkqcamt.supabase.co`
+(aplikasi memakai *publishable key*; secret key / service_role **tidak** ada di repo).
+
+Tabel `public.courses` — SQL lengkap di [docs/supabase_schema.sql](docs/supabase_schema.sql):
+
+| Kolom | Tipe | Keterangan |
+|---|---|---|
+| `id` | bigint identity | Primary key |
+| `code` | text, unique | Kode course (juga kunci favorites) |
+| `title` | text | Judul course |
+| `credits` | int, `> 0` | Jumlah SKS |
+| `status` | text, default `planned` | CHECK `planned` / `active` / `done` |
+| `created_at` | timestamptz | Waktu pembuatan |
+
+Nama kolom sama dengan key di `Course.fromJson()` / `toJson()`.
+RLS aktif dengan policy permisif untuk role `anon` (select/insert/update/delete) —
+**hanya untuk laboratorium**, bukan pola produksi.
