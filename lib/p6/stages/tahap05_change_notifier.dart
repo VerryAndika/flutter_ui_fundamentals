@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/identity_header.dart';
 import '../../repositories/course_repository.dart';
-import '../../services/course_service.dart';
+import '../../config/api_config.dart';
+import '../../services/course_api_service.dart';
 import '../../providers/course_provider.dart';
 
 const List<(String, String)> _courses = [
@@ -22,7 +23,7 @@ class ChangeNotifierPage extends StatefulWidget {
 
 class _ChangeNotifierPageState extends State<ChangeNotifierPage> {
   final CourseProvider courseState = CourseProvider(
-    CourseRepository(CourseService()),
+    CourseRepository(CourseApiService(apiBaseUrl)),
   );
 
   @override

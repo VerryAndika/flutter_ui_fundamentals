@@ -6,11 +6,13 @@ import 'package:flutter_ui_fundamentals/models/course.dart';
 import 'package:flutter_ui_fundamentals/providers/course_provider.dart';
 import 'package:flutter_ui_fundamentals/repositories/course_repository.dart';
 import 'package:flutter_ui_fundamentals/screens/home_shell.dart';
-import 'package:flutter_ui_fundamentals/services/course_service.dart';
+import 'package:flutter_ui_fundamentals/config/api_config.dart';
+import 'package:flutter_ui_fundamentals/services/course_api_service.dart';
 
 // Repository palsu: data dari memori, tanpa membaca asset.
 class FakeCourseRepository extends CourseRepository {
-  FakeCourseRepository({this.fail = false}) : super(CourseService());
+  FakeCourseRepository({this.fail = false})
+    : super(CourseApiService(apiBaseUrl));
 
   final bool fail;
 

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../../models/course.dart';
 import '../../widgets/identity_header.dart';
-import 'tahap02_http_get.dart';
+import '../../config/api_config.dart';
+import '../../services/course_api_service.dart';
 
 // Tahap 3: response list -> List<Course>, lalu toJson() untuk request body.
 class ModelJsonPage extends StatefulWidget {
@@ -20,10 +21,8 @@ class _ModelJsonPageState extends State<ModelJsonPage> {
   @override
   void initState() {
     super.initState();
-    future = fetchCourses().then(
-      (list) =>
-          list.map((e) => Course.fromJson(e as Map<String, dynamic>)).toList(),
-    );
+    // Sejak Tahap 4: konversi ke List<Course> dilakukan di service.
+    future = CourseApiService(apiBaseUrl).getCourses();
   }
 
   @override

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../models/course.dart';
 import '../../widgets/identity_header.dart';
-import '../../services/course_service.dart';
+import '../../config/api_config.dart';
+import '../../services/course_api_service.dart';
 
-// Tahap 9: uji CourseService secara langsung (sementara, sebelum Provider).
+// Tahap 9: uji service secara langsung (sementara, sebelum Provider).
+// P7 Tahap 4: CourseService (JSON asset) diganti CourseApiService (REST).
 class CourseServicePage extends StatefulWidget {
   const CourseServicePage({super.key});
 
@@ -18,8 +20,8 @@ class _CourseServicePageState extends State<CourseServicePage> {
   @override
   void initState() {
     super.initState();
-    coursesFuture = CourseService().loadCourses().then((courses) {
-      debugPrint('CourseService: ${courses.length} course dimuat');
+    coursesFuture = CourseApiService(apiBaseUrl).getCourses().then((courses) {
+      debugPrint('CourseApiService: ${courses.length} course dimuat');
       return courses;
     });
   }
@@ -34,7 +36,7 @@ class _CourseServicePageState extends State<CourseServicePage> {
           final courses = snapshot.data;
           return ListView(
             children: [
-              const IdentityHeader(subtitle: 'CourseService.loadCourses()'),
+              const IdentityHeader(subtitle: 'CourseApiService.getCourses()'),
               ListTile(
                 title: Text(
                   courses == null

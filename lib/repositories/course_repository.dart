@@ -1,14 +1,14 @@
 import '../models/course.dart';
-import '../services/course_service.dart';
+import '../services/course_api_service.dart';
 
-// P6 Tahap 10: abstraksi data untuk Provider. Provider tidak perlu tahu
-// apakah data berasal dari JSON asset, REST API, atau database lokal.
+// P6 Tahap 10: abstraksi data untuk Provider.
+// P7 Tahap 4: sumber data diganti dari JSON asset ke REST API.
 class CourseRepository {
-  final CourseService service;
+  final CourseApiService service;
 
   CourseRepository(this.service);
 
   Future<List<Course>> getCourses() {
-    return service.loadCourses();
+    return service.getCourses();
   }
 }

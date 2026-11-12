@@ -1,23 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 import '../../config/api_config.dart';
+import '../../models/course.dart';
+import '../../services/course_api_service.dart';
 import '../../widgets/identity_header.dart';
 
-// Tahap 2: GET langsung dari halaman (sementara; dipindah ke service
-// pada Tahap 4). Status code diperiksa sebelum body diproses.
-Future<List<dynamic>> fetchCourses() async {
-  final response = await http.get(Uri.parse(apiUrl));
-
-  if (response.statusCode == 200) {
-    return jsonDecode(response.body) as List<dynamic>;
-  }
-
-  throw Exception('HTTP ${response.statusCode}');
-}
-
+// Tahap 2: GET dari Flutter. Sejak Tahap 4, kode http.get dipindah ke
+// CourseApiService; halaman ini hanya memanggil service.
 class HttpGetPage extends StatefulWidget {
   const HttpGetPage({super.key});
 
@@ -26,12 +15,12 @@ class HttpGetPage extends StatefulWidget {
 }
 
 class _HttpGetPageState extends State<HttpGetPage> {
-  late Future<List<dynamic>> future;
+  late Future<List<Course>> future;
 
   @override
   void initState() {
     super.initState();
-    future = fetchCourses().then((list) {
+    future = CourseApiService(apiBaseUrl).getCourses().then((list) {
       debugPrint('GET $apiUrl -> ${list.length} item');
       return list;
     });
@@ -41,11 +30,11 @@ class _HttpGetPageState extends State<HttpGetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('P7 Tahap 2 - HTTP GET')),
-      body: FutureBuilder<List<dynamic>>(
+      body: FutureBuilder<List<Course>>(
         future: future,
         builder: (context, snapshot) => ListView(
           children: [
-            const IdentityHeader(subtitle: 'http.get'),
+            const IdentityHeader(subtitle: 'GET via CourseApiService'),
             ListTile(
               leading: const Icon(Icons.link),
               title: const Text('GET'),
@@ -67,8 +56,8 @@ class _HttpGetPageState extends State<HttpGetPage> {
               for (final item in snapshot.data!.take(5))
                 ListTile(
                   dense: true,
-                  title: Text('${item['title']}'),
-                  subtitle: Text('${item['code']} • ${item['status']}'),
+                  title: Text(item.title),
+                  subtitle: Text('${item.code} • ${item.status}'),
                 ),
             ],
           ],

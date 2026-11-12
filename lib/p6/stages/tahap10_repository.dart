@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../models/course.dart';
 import '../../widgets/identity_header.dart';
 import '../../repositories/course_repository.dart';
-import '../../services/course_service.dart';
+import '../../config/api_config.dart';
+import '../../services/course_api_service.dart';
 
 // Tahap 10: data diambil lewat CourseRepository, bukan langsung service.
 class CourseRepositoryPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class CourseRepositoryPage extends StatefulWidget {
 }
 
 class _CourseRepositoryPageState extends State<CourseRepositoryPage> {
-  final repository = CourseRepository(CourseService());
+  final repository = CourseRepository(CourseApiService(apiBaseUrl));
   late final Future<List<Course>> coursesFuture;
 
   @override
@@ -34,7 +35,9 @@ class _CourseRepositoryPageState extends State<CourseRepositoryPage> {
             const IdentityHeader(subtitle: 'CourseRepository.getCourses()'),
             const ListTile(
               leading: Icon(Icons.account_tree_outlined),
-              title: Text('UI → CourseRepository → CourseService → JSON'),
+              title: Text(
+                'UI → CourseRepository → CourseApiService → REST API',
+              ),
             ),
             if (!snapshot.hasData)
               const Center(child: CircularProgressIndicator())

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'config/api_config.dart';
 import 'identity.dart';
 import 'p5/p5_routes.dart';
 import 'p5/responsive_shell.dart';
@@ -15,15 +16,17 @@ import 'pages/stage_pages.dart';
 import 'pages/topics_page.dart';
 import 'repositories/course_repository.dart';
 import 'screens/home_shell.dart';
-import 'services/course_service.dart';
+import 'services/course_api_service.dart';
 
 void main() {
   // P6 Tahap 6: CourseProvider tersedia untuk seluruh widget tree.
   runApp(
     ChangeNotifierProvider(
       // Tahap 11: Provider -> Repository -> Service, dimuat sekali di awal.
+      // P7 Tahap 4: service sekarang mengambil data dari REST API.
       create: (_) =>
-          CourseProvider(CourseRepository(CourseService()))..loadCourses(),
+          CourseProvider(CourseRepository(CourseApiService(apiBaseUrl)))
+            ..loadCourses(),
       child: const MyApp(),
     ),
   );
