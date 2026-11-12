@@ -62,6 +62,18 @@ class CourseProvider extends ChangeNotifier {
   Future<Course> createCourse(Course course) =>
       _save(() => repository.createCourse(course));
 
+  // P7 Tahap 7
+  Future<void> updateCourse(int id, Course course) =>
+      _save(() => repository.updateCourse(id, course));
+
+  // Data terbaru berdasarkan code (code = kunci favorites).
+  Course? courseByCode(String code) {
+    for (final c in courses) {
+      if (c.code == code) return c;
+    }
+    return null;
+  }
+
   int get favoriteCount => favorites.length;
 
   // Tahap 13: dipakai FavoritesScreen.

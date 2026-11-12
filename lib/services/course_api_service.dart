@@ -47,4 +47,17 @@ class CourseApiService {
 
     throw _error('membuat course', response);
   }
+
+  // P7 Tahap 7: PUT mengganti seluruh resource course.
+  Future<void> updateCourse(int id, Course course) async {
+    final response = await http.put(
+      Uri.parse('$baseUrl/courses/$id'),
+      headers: _json,
+      body: jsonEncode(course.toJson()),
+    );
+
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw _error('memperbarui course', response);
+    }
+  }
 }

@@ -4,9 +4,12 @@ import 'package:provider/provider.dart';
 import '../models/course.dart';
 import '../providers/course_provider.dart';
 import '../widgets/identity_header.dart';
+import 'course_form_screen.dart';
 
 // P6 Tahap 13: status favorite di detail dibaca dari provider yang sama
 // dengan list dan FavoritesScreen.
+// P7 Tahap 7: data course diambil ulang dari provider (berdasarkan code)
+// agar hasil edit langsung terlihat; course dari constructor jadi fallback.
 class CourseDetailScreen extends StatelessWidget {
   const CourseDetailScreen({super.key, required this.course});
 
@@ -14,11 +17,32 @@ class CourseDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final course =
+        context.select<CourseProvider, Course?>(
+          (p) => p.courseByCode(this.course.code),
+        ) ??
+        this.course;
     final favorite = context.select<CourseProvider, bool>(
       (p) => p.isFavorite(course.code),
     );
     return Scaffold(
-      appBar: AppBar(title: Text(course.code)),
+      appBar: AppBar(
+        title: Text(course.code),
+        actions: [
+          IconButton(
+            tooltip: 'Edit',
+            icon: const Icon(Icons.edit),
+            onPressed: course.id == null
+                ? null
+                : () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => CourseFormScreen(initial: course),
+                    ),
+                  ),
+          ),
+        ],
+      ),
       body: ListView(
         children: [
           const IdentityHeader(subtitle: 'Detail course'),
