@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../screens/courses_screen.dart';
 import 'stages/tahap02_http_get.dart';
 import 'stages/tahap03_model_json.dart';
 
@@ -8,4 +9,8 @@ import 'stages/tahap03_model_json.dart';
 final Map<String, WidgetBuilder> p7Routes = {
   '/p7/tahap2': (_) => const HttpGetPage(),
   '/p7/tahap3': (_) => const ModelJsonPage(),
+  '/p7/tahap5': (_) => Scaffold(
+    appBar: AppBar(title: const Text('P7 Tahap 5 - Async State')),
+    body: const CoursesScreen(),
+  ),
 };
