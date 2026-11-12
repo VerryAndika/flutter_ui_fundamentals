@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../models/course.dart';
+import 'course_data_source.dart';
 
 // P7 Tahap 4: semua komunikasi HTTP dengan REST API ada di service ini.
-class CourseApiService {
+// P7 Tahap 9: implements CourseDataSource.
+class CourseApiService implements CourseDataSource {
   CourseApiService(this.baseUrl);
 
   final String baseUrl;
@@ -22,6 +24,7 @@ class CourseApiService {
     return Exception('Gagal $action (HTTP ${response.statusCode})$detail');
   }
 
+  @override
   Future<List<Course>> getCourses() async {
     final response = await http.get(Uri.parse('$baseUrl/courses'));
 
@@ -34,6 +37,7 @@ class CourseApiService {
   }
 
   // P7 Tahap 6: POST membuat resource baru (201 Created).
+  @override
   Future<Course> createCourse(Course course) async {
     final response = await http.post(
       Uri.parse('$baseUrl/courses'),
@@ -49,6 +53,7 @@ class CourseApiService {
   }
 
   // P7 Tahap 7: PUT mengganti seluruh resource course.
+  @override
   Future<void> updateCourse(int id, Course course) async {
     final response = await http.put(
       Uri.parse('$baseUrl/courses/$id'),
@@ -62,6 +67,7 @@ class CourseApiService {
   }
 
   // P7 Tahap 8: DELETE menghapus resource (204 No Content).
+  @override
   Future<void> deleteCourse(int id) async {
     final response = await http.delete(Uri.parse('$baseUrl/courses/$id'));
 

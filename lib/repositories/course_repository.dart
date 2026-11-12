@@ -1,21 +1,20 @@
 import '../models/course.dart';
-import '../services/course_api_service.dart';
+import '../services/course_data_source.dart';
 
 // P6 Tahap 10: abstraksi data untuk Provider.
-// P7 Tahap 4: sumber data diganti dari JSON asset ke REST API.
+// P7 Tahap 9: bergantung pada kontrak CourseDataSource, bukan pada
+// implementasi konkret (REST/Supabase).
 class CourseRepository {
-  final CourseApiService service;
+  CourseRepository(this.dataSource);
 
-  CourseRepository(this.service);
+  final CourseDataSource dataSource;
 
-  Future<List<Course>> getCourses() {
-    return service.getCourses();
-  }
+  Future<List<Course>> getCourses() => dataSource.getCourses();
 
-  Future<Course> createCourse(Course course) => service.createCourse(course);
+  Future<Course> createCourse(Course course) => dataSource.createCourse(course);
 
   Future<void> updateCourse(int id, Course course) =>
-      service.updateCourse(id, course);
+      dataSource.updateCourse(id, course);
 
-  Future<void> deleteCourse(int id) => service.deleteCourse(id);
+  Future<void> deleteCourse(int id) => dataSource.deleteCourse(id);
 }

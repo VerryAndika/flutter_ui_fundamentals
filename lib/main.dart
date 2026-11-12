@@ -17,16 +17,19 @@ import 'pages/topics_page.dart';
 import 'repositories/course_repository.dart';
 import 'screens/home_shell.dart';
 import 'services/course_api_service.dart';
+import 'services/course_data_source.dart';
 
 void main() {
-  // P6 Tahap 6: CourseProvider tersedia untuk seluruh widget tree.
+  // P7 Tahap 9: rakit service -> repository -> provider di satu tempat.
+  // Hanya baris dataSource ini yang berubah ketika sumber data diganti.
+  final CourseDataSource dataSource = CourseApiService(apiBaseUrl);
+  final repository = CourseRepository(dataSource);
+
+  // P6 Tahap 6: CourseProvider tersedia untuk seluruh widget tree;
+  // loadCourses() dipanggil sekali saat provider dibuat.
   runApp(
     ChangeNotifierProvider(
-      // Tahap 11: Provider -> Repository -> Service, dimuat sekali di awal.
-      // P7 Tahap 4: service sekarang mengambil data dari REST API.
-      create: (_) =>
-          CourseProvider(CourseRepository(CourseApiService(apiBaseUrl)))
-            ..loadCourses(),
+      create: (_) => CourseProvider(repository)..loadCourses(),
       child: const MyApp(),
     ),
   );
