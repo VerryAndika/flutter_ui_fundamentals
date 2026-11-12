@@ -60,4 +60,13 @@ class CourseApiService {
       throw _error('memperbarui course', response);
     }
   }
+
+  // P7 Tahap 8: DELETE menghapus resource (204 No Content).
+  Future<void> deleteCourse(int id) async {
+    final response = await http.delete(Uri.parse('$baseUrl/courses/$id'));
+
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw _error('menghapus course', response);
+    }
+  }
 }

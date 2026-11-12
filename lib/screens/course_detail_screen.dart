@@ -15,6 +15,46 @@ class CourseDetailScreen extends StatelessWidget {
 
   final Course course;
 
+  // P7 Tahap 8: konfirmasi -> DELETE -> SnackBar -> kembali ke list.
+  Future<void> _confirmDelete(BuildContext context, Course course) async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Hapus course?'),
+        content: Text('${course.code} - ${course.title} akan dihapus.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Batal'),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Hapus'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true || !context.mounted) return;
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      await context.read<CourseProvider>().deleteCourse(course);
+      if (!context.mounted) return;
+      messenger.showSnackBar(
+        SnackBar(content: Text('Course ${course.code} dihapus')),
+      );
+      Navigator.pop(context);
+    } catch (e) {
+      if (!context.mounted) return;
+      messenger.showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red.shade700,
+          content: Text(e.toString().replaceFirst('Exception: ', '')),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final course =
@@ -40,6 +80,13 @@ class CourseDetailScreen extends StatelessWidget {
                       builder: (_) => CourseFormScreen(initial: course),
                     ),
                   ),
+          ),
+          IconButton(
+            tooltip: 'Hapus',
+            icon: const Icon(Icons.delete_outline),
+            onPressed: course.id == null
+                ? null
+                : () => _confirmDelete(context, course),
           ),
         ],
       ),

@@ -66,6 +66,12 @@ class CourseProvider extends ChangeNotifier {
   Future<void> updateCourse(int id, Course course) =>
       _save(() => repository.updateCourse(id, course));
 
+  // P7 Tahap 8: hapus juga dari favorites agar tidak ada data yatim.
+  Future<void> deleteCourse(Course course) => _save(() async {
+    await repository.deleteCourse(course.id!);
+    favorites.remove(course.code);
+  });
+
   // Data terbaru berdasarkan code (code = kunci favorites).
   Course? courseByCode(String code) {
     for (final c in courses) {
