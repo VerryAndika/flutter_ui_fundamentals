@@ -60,3 +60,21 @@ model, service, repository, dan provider tidak mengimpor widget maupun `BuildCon
 Course Explorer v2 dikembangkan menjadi **Course Data Manager** (bukan project baru):
 data course diambil dari REST API lalu dari database Supabase, dengan CRUD lengkap.
 Latihan per tahap ada di route `/p7/tahapN`.
+
+### Endpoint REST yang digunakan (Tahap 1)
+
+Base URL (`apiBaseUrl`): `https://course-api-pearl.vercel.app` — API latihan dari dosen
+(koleksi Postman *Course API - Pertemuan 7*). Data dipakai bersama satu kelas.
+
+| Method | Endpoint | Status sukses | Keterangan |
+|---|---|---|---|
+| GET | `/courses` | 200 | Semua course, urut berdasarkan `id` (opsional `?status=planned\|active\|done`) |
+| GET | `/courses/{id}` | 200 | Satu course; 404 jika tidak ada, 400 jika id bukan angka |
+| POST | `/courses` | 201 | Buat course (`code`, `title`, `credits` wajib; `status` default `planned`); 409 jika `code` duplikat |
+| PUT | `/courses/{id}` | 200 | Ganti seluruh data course |
+| PATCH | `/courses/{id}` | 200 | Ubah sebagian field |
+| DELETE | `/courses/{id}` | 204 | Hapus course, tanpa body |
+
+Field JSON resource course: `id` (int), `code` (string), `title` (string), `credits` (int),
+`status` (`planned`/`active`/`done`), `created_at` (timestamp ISO-8601).
+Error dikembalikan sebagai JSON `{"error": "...", "status": <kode>}`.
