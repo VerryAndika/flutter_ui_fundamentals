@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'config/api_config.dart';
 import 'config/supabase_config.dart';
 import 'identity.dart';
 import 'p5/p5_routes.dart';
@@ -18,8 +17,8 @@ import 'pages/stage_pages.dart';
 import 'pages/topics_page.dart';
 import 'repositories/course_repository.dart';
 import 'screens/home_shell.dart';
-import 'services/course_api_service.dart';
 import 'services/course_data_source.dart';
+import 'services/course_supabase_service.dart';
 
 Future<void> main() async {
   // P7 Tahap 10: inisialisasi Supabase sebelum runApp().
@@ -29,7 +28,9 @@ Future<void> main() async {
 
   // P7 Tahap 9: rakit service -> repository -> provider di satu tempat.
   // Hanya baris dataSource ini yang berubah ketika sumber data diganti.
-  final CourseDataSource dataSource = CourseApiService(apiBaseUrl);
+  // P7 Tahap 12: data source aktif = Supabase
+  // (untuk REST: CourseApiService(apiBaseUrl)).
+  final CourseDataSource dataSource = CourseSupabaseService();
   final repository = CourseRepository(dataSource);
 
   // P6 Tahap 6: CourseProvider tersedia untuk seluruh widget tree;
