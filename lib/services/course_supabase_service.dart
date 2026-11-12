@@ -16,9 +16,19 @@ class CourseSupabaseService implements CourseDataSource {
         .toList();
   }
 
-  // Sementara, agar kelas tetap dapat dikompilasi:
+  // P7 Tahap 13: INSERT lalu kembalikan row baru (sama seperti versi REST).
   @override
-  Future<Course> createCourse(Course course) => throw UnimplementedError();
+  Future<Course> createCourse(Course course) async {
+    final row = await supabase
+        .from('courses')
+        .insert(course.toJson())
+        .select()
+        .single();
+
+    return Course.fromJson(row);
+  }
+
+  // Sementara, agar kelas tetap dapat dikompilasi:
 
   @override
   Future<void> updateCourse(int id, Course course) =>
