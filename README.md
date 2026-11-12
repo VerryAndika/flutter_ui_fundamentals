@@ -4,15 +4,28 @@ Praktikum Pertemuan 4, 5, 6, dan 7 Pemrograman Mobile.
 
 **2415051065 - I Kadek Very Andika** (5 IKI)
 
-Aplikasi Flutter yang menampilkan identitas mahasiswa, ringkasan materi, dan
-daftar materi dari file JSON statik (`assets/data/student_data.json`).
+Aplikasi Flutter yang dikembangkan bertahap setiap pertemuan:
+
+- **P4** – Learning Dashboard dari file JSON statik (`assets/data/student_data.json`).
+- **P5** – Course Explorer dengan navigasi responsif (NavigationBar / NavigationRail).
+- **P6** – Course Explorer v2 dengan Provider, repository, dan favorites.
+- **P7** – **Course Data Manager**: data course dibaca dan dikelola (CRUD) dari
+  backend **Supabase (PostgreSQL)**; versi REST API latihan tetap tersedia.
 
 ## Menjalankan
 
 ```bash
 flutter pub get
-flutter run
+flutter run            # emulator/device
+flutter run -d chrome  # atau di browser
+flutter test
 ```
+
+Aplikasi langsung terhubung ke project Supabase latihan (URL dan *publishable key*
+ada di `lib/config/supabase_config.dart`). Untuk memakai project Supabase sendiri:
+jalankan `docs/supabase_schema.sql` di SQL Editor, lalu ganti URL dan publishable key
+pada file tersebut. Untuk kembali ke REST API latihan, ganti satu baris data source
+di `lib/main.dart` menjadi `CourseApiService(apiBaseUrl)`.
 
 Halaman utama adalah **Course Explorer** (Pertemuan 5). Learning Dashboard (Pertemuan 4) ada di route `/p4`. Menu drawer membuka halaman
 latihan, daftar topik, dan debugging. Hasil tiap tahap juga dapat dibuka
@@ -29,7 +42,8 @@ langsung lewat route, misalnya `/#/tahap5` saat dijalankan di web.
 | `/tahap15-overflow` | Tahap 15 Kasus A sebelum diperbaiki (overflow, terlihat di mode debug) |
 | `/tahap15` | Tahap 15 Kasus A sesudah diperbaiki dengan `Expanded` |
 
-Jawaban worksheet: [JAWABAN.md](JAWABAN.md) (P4) dan [JAWABAN_P5.md](JAWABAN_P5.md) (P5).
+Jawaban worksheet: [JAWABAN.md](JAWABAN.md) (P4), [JAWABAN_P5.md](JAWABAN_P5.md) (P5),
+[JAWABAN_P6.md](JAWABAN_P6.md) (P6), dan [JAWABAN_P7.md](JAWABAN_P7.md) (P7).
 Screenshot bukti: [docs/screenshots](docs/screenshots) dan [docs/p5](docs/p5).
 
 ## Pertemuan 6 – State Management & Architecture
@@ -132,3 +146,12 @@ hapus (dengan konfirmasi), refresh, loading/empty/error + retry, SnackBar, favor
 Pesan error yang ditampilkan aplikasi: 404/endpoint salah (REST), tidak ada koneksi,
 format JSON tidak sesuai model, `23505` code duplikat, `23514` melanggar CHECK,
 `42501` ditolak RLS, dan update/delete yang tidak mengubah baris apa pun.
+
+### Backend yang digunakan
+
+| Backend | Keterangan |
+|---|---|
+| Supabase (PostgreSQL) — **aktif** | `https://vebwsoctgginxbkqcamt.supabase.co`, tabel `courses`, RLS aktif |
+| REST API latihan | `https://course-api-pearl.vercel.app/courses` (dipakai Tahap 1–9) |
+
+Screenshot bukti P7: [docs/p7](docs/p7).
