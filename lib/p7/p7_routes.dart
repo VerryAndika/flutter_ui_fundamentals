@@ -4,6 +4,7 @@ import '../screens/course_form_screen.dart';
 import '../screens/courses_screen.dart';
 import 'stages/tahap02_http_get.dart';
 import 'stages/tahap03_model_json.dart';
+import 'stages/tahap10_supabase_client.dart';
 
 // Pertemuan 7 - RESTful API, Backend Services & Database Integration.
 // Halaman latihan per tahap, mis. /#/p7/tahap2 di web.
@@ -15,4 +16,5 @@ final Map<String, WidgetBuilder> p7Routes = {
     body: const CoursesScreen(),
   ),
   '/p7/tahap6': (_) => const CourseFormScreen(),
+  '/p7/tahap10': (_) => const SupabaseClientPage(),
 };

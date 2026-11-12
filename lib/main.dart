@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'config/api_config.dart';
+import 'config/supabase_config.dart';
 import 'identity.dart';
 import 'p5/p5_routes.dart';
 import 'p5/responsive_shell.dart';
@@ -19,7 +21,12 @@ import 'screens/home_shell.dart';
 import 'services/course_api_service.dart';
 import 'services/course_data_source.dart';
 
-void main() {
+Future<void> main() async {
+  // P7 Tahap 10: inisialisasi Supabase sebelum runApp().
+  WidgetsFlutterBinding.ensureInitialized();
+  // publishableKey = anon key versi baru (aman di client, bukan secret key).
+  await Supabase.initialize(url: supabaseUrl, publishableKey: supabaseAnonKey);
+
   // P7 Tahap 9: rakit service -> repository -> provider di satu tempat.
   // Hanya baris dataSource ini yang berubah ketika sumber data diganti.
   final CourseDataSource dataSource = CourseApiService(apiBaseUrl);
