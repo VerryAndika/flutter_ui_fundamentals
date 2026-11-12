@@ -1,6 +1,6 @@
 # Flutter UI Fundamentals – Learning Dashboard & Course Explorer
 
-Praktikum Pertemuan 4, 5, dan 6 Pemrograman Mobile.
+Praktikum Pertemuan 4, 5, 6, dan 7 Pemrograman Mobile.
 
 **2415051065 - I Kadek Very Andika** (5 IKI)
 
@@ -54,3 +54,9 @@ Arah dependency: **Screen/Widget → Provider → Repository → Service → JSO
 
 Audit (Tahap 16): screen/widget/provider tidak memanggil `rootBundle`/`jsonDecode`;
 model, service, repository, dan provider tidak mengimpor widget maupun `BuildContext`.
+
+## Pertemuan 7 – REST API, Backend Services & Database
+
+Course Explorer v2 dikembangkan menjadi **Course Data Manager** (bukan project baru):
+data course diambil dari REST API lalu dari database Supabase, dengan CRUD lengkap.
+Latihan per tahap ada di route `/p7/tahapN`.

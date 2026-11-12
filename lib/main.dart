@@ -6,6 +6,7 @@ import 'p5/p5_routes.dart';
 import 'p5/responsive_shell.dart';
 import 'providers/course_provider.dart';
 import 'p6/p6_routes.dart';
+import 'p7/p7_routes.dart';
 import 'pages/dashboard_page.dart';
 import 'pages/debugging_page.dart';
 import 'pages/practice_page.dart';
@@ -77,4 +78,5 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/tahap15-overflow': (_) => const OverflowDemoPage(),
   ...p5Routes,
   ...p6Routes,
+  ...p7Routes,
 };
