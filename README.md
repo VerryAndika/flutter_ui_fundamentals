@@ -98,3 +98,23 @@ Tabel `public.courses` — SQL lengkap di [docs/supabase_schema.sql](docs/supaba
 Nama kolom sama dengan key di `Course.fromJson()` / `toJson()`.
 RLS aktif dengan policy permisif untuk role `anon` (select/insert/update/delete) —
 **hanya untuk laboratorium**, bukan pola produksi.
+
+### Arsitektur Course Data Manager (Tahap 16)
+
+Arah dependency: **Screen/Widget → CourseProvider → CourseRepository → CourseDataSource**,
+dengan dua implementasi data source:
+
+| Data source | File | Dipakai |
+|---|---|---|
+| REST API | `lib/services/course_api_service.dart` (`http`) | Tahap 2–9 |
+| Supabase | `lib/services/course_supabase_service.dart` (`supabase_flutter`) | Tahap 12–18 (**aktif**) |
+
+Data source aktif dipilih **hanya** di `lib/main.dart`:
+
+```dart
+final CourseDataSource dataSource = CourseSupabaseService(); // REST: CourseApiService(apiBaseUrl)
+```
+
+Screen, provider, dan repository tidak berubah ketika sumber data diganti.
+Fitur: list/grid responsif, detail, tambah (form + validasi), edit (code read-only),
+hapus (dengan konfirmasi), refresh, loading/empty/error + retry, SnackBar, favorites (kunci `code`).

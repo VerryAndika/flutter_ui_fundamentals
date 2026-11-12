@@ -28,8 +28,8 @@ class ProfileScreen extends StatelessWidget {
             leading: Icon(Icons.layers),
             title: Text('Arsitektur'),
             subtitle: Text(
-              'models • services • repositories • providers • '
-              'screens • widgets',
+              'models • services (REST & Supabase) • repositories • '
+              'providers • screens • widgets',
             ),
           ),
         ),

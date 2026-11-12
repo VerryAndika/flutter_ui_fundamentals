@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
           title: Text('Alur data'),
           subtitle: Text(
             'Screen → CourseProvider → CourseRepository → '
-            'CourseApiService → REST API (course-api-pearl.vercel.app)',
+            'CourseSupabaseService → Supabase (tabel courses)',
           ),
         ),
       ],

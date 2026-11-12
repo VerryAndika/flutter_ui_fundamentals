@@ -28,7 +28,6 @@ class CourseSupabaseService implements CourseDataSource {
     return Course.fromJson(row);
   }
 
-
   // P7 Tahap 14: UPDATE berdasarkan id.
   @override
   Future<void> updateCourse(int id, Course course) async {
