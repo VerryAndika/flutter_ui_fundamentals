@@ -11,6 +11,8 @@ import 'p6/p6_routes.dart';
 import 'p7/p7_routes.dart';
 import 'pages/dashboard_page.dart';
 import 'pages/debugging_page.dart';
+import 'app_keys.dart';
+import 'pages/auth_gate.dart';
 import 'pages/login_page.dart';
 import 'pages/practice_page.dart';
 import 'pages/stage_json_pages.dart';
@@ -26,6 +28,17 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // publishableKey = anon key versi baru (aman di client, bukan secret key).
   await Supabase.initialize(url: supabaseUrl, publishableKey: supabaseAnonKey);
+
+  // P9 Praktik 2: dengarkan perubahan session (logout/expired di tempat lain).
+  Supabase.instance.client.auth.onAuthStateChange.listen((data) {
+    debugPrint('Auth event: ${data.event}');
+    if (data.event == AuthChangeEvent.signedOut) {
+      navigatorKey.currentState?.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const LoginPage()),
+        (route) => false,
+      );
+    }
+  });
 
   // P7 Tahap 9: rakit service -> repository -> provider di satu tempat.
   // Hanya baris dataSource ini yang berubah ketika sumber data diganti.
@@ -51,6 +64,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
+      scaffoldMessengerKey: messengerKey,
       title: 'Course Explorer v2 - $studentId - $studentName',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
@@ -73,8 +88,8 @@ class MyApp extends StatelessWidget {
 // Pertemuan 5 di /p5, Learning Dashboard Pertemuan 4 di /p4, dan route lain
 // menyimpan hasil tiap tahap, mis. /#/tahap5 atau /#/p5/tahap3 di web.
 final Map<String, WidgetBuilder> appRoutes = {
-  // P9 Praktik 1: aplikasi dibuka dari halaman Login (KosFinder).
-  '/': (_) => const LoginPage(),
+  // P9 Praktik 2: Check Session -> Home / Login.
+  '/': (_) => const AuthGate(),
   '/courses': (_) => const HomeShell(),
   '/p5': (_) => const ResponsiveShell(),
   '/p4': (_) => const DashboardPage(),
