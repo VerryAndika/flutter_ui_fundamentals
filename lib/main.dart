@@ -11,6 +11,7 @@ import 'p6/p6_routes.dart';
 import 'p7/p7_routes.dart';
 import 'pages/dashboard_page.dart';
 import 'pages/debugging_page.dart';
+import 'pages/login_page.dart';
 import 'pages/practice_page.dart';
 import 'pages/stage_json_pages.dart';
 import 'pages/stage_pages.dart';
@@ -72,7 +73,9 @@ class MyApp extends StatelessWidget {
 // Pertemuan 5 di /p5, Learning Dashboard Pertemuan 4 di /p4, dan route lain
 // menyimpan hasil tiap tahap, mis. /#/tahap5 atau /#/p5/tahap3 di web.
 final Map<String, WidgetBuilder> appRoutes = {
-  '/': (_) => const HomeShell(),
+  // P9 Praktik 1: aplikasi dibuka dari halaman Login (KosFinder).
+  '/': (_) => const LoginPage(),
+  '/courses': (_) => const HomeShell(),
   '/p5': (_) => const ResponsiveShell(),
   '/p4': (_) => const DashboardPage(),
   '/tahap1': (_) => const Tahap1Page(),
