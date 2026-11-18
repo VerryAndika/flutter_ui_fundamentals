@@ -1,8 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'config/supabase_config.dart';
+import 'firebase_options.dart';
 import 'identity.dart';
 import 'p5/p5_routes.dart';
 import 'p5/responsive_shell.dart';
@@ -19,6 +23,7 @@ import 'pages/stage_json_pages.dart';
 import 'pages/stage_pages.dart';
 import 'pages/topics_page.dart';
 import 'repositories/course_repository.dart';
+import 'services/notification_service.dart';
 import 'screens/home_shell.dart';
 import 'services/course_data_source.dart';
 import 'services/course_supabase_service.dart';
@@ -26,6 +31,17 @@ import 'services/course_supabase_service.dart';
 Future<void> main() async {
   // P7 Tahap 10: inisialisasi Supabase sebelum runApp().
   WidgetsFlutterBinding.ensureInitialized();
+  // P9 Praktik 7: inisialisasi Firebase (FCM). Platform yang belum
+  // dikonfigurasi dilewati agar fitur lain tetap berjalan.
+  if (DefaultFirebaseOptions.isSupported) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    if (!kIsWeb) {
+      // Web memakai service worker web/firebase-messaging-sw.js.
+      FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    }
+  }
   // publishableKey = anon key versi baru (aman di client, bukan secret key).
   await Supabase.initialize(url: supabaseUrl, publishableKey: supabaseAnonKey);
 
