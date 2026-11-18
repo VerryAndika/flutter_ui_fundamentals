@@ -2,15 +2,30 @@ import 'package:flutter/material.dart';
 
 import '../identity.dart';
 import '../services/auth_service.dart';
+import '../services/profile_service.dart';
 import 'login_page.dart';
 
-// P9 Praktik 2: Home + tombol Logout (session dihapus -> kembali ke Login).
-class HomePage extends StatelessWidget {
+// P9 Praktik 3: Home menampilkan currentUser + currentUserRole
+// (Nama, Email, Role) dari tabel profiles.
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-  Future<void> _logout(BuildContext context) async {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late Future<UserProfile?> _profileFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _profileFuture = ProfileService().getMyProfile();
+  }
+
+  Future<void> _logout() async {
     await AuthService.instance.logout(); // Session Removed
-    if (!context.mounted) return;
+    if (!mounted) return;
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (_) => const LoginPage()),
       (route) => false,
@@ -19,7 +34,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = AuthService.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text('KosFinder'),
@@ -27,21 +41,58 @@ class HomePage extends StatelessWidget {
           IconButton(
             tooltip: 'Logout',
             icon: const Icon(Icons.logout),
-            onPressed: () => _logout(context),
+            onPressed: _logout,
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.verified_user, size: 56, color: Colors.green),
-            const SizedBox(height: 12),
-            Text('Login sebagai: ${user?.email ?? '-'}'),
-            const SizedBox(height: 4),
-            const Text('P9 • $studentId - $studentName'),
-          ],
-        ),
+      body: FutureBuilder<UserProfile?>(
+        future: _profileFuture,
+        builder: (context, snap) {
+          if (snap.connectionState != ConnectionState.done) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snap.hasError || snap.data == null) {
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('Gagal memuat profil'),
+                  TextButton(
+                    onPressed: () => setState(() {
+                      _profileFuture = ProfileService().getMyProfile();
+                    }),
+                    child: const Text('Coba lagi'),
+                  ),
+                ],
+              ),
+            );
+          }
+          final p = snap.data!;
+          return ListView(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text('Nama'),
+                subtitle: Text(p.name.isEmpty ? '-' : p.name),
+              ),
+              ListTile(
+                leading: const Icon(Icons.email),
+                title: const Text('Email'),
+                subtitle: Text(p.email),
+              ),
+              ListTile(
+                leading: const Icon(Icons.badge),
+                title: const Text('Role'),
+                subtitle: Text(p.roleLabel),
+              ),
+              const Divider(),
+              const ListTile(
+                dense: true,
+                title: Text('P9 • $studentId - $studentName'),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

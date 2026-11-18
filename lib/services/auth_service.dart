@@ -12,11 +12,20 @@ class AuthService {
   Session? get currentSession => _client.auth.currentSession;
   bool get isLoggedIn => currentSession != null;
 
+  // P9 Praktik 3: name & role dikirim sebagai user metadata, lalu dibaca
+  // trigger handle_new_user untuk membuat baris di tabel profiles.
+  // Role admin tidak bisa dipilih dari aplikasi.
   Future<AuthResponse> register({
     required String email,
     required String password,
+    String name = '',
+    String role = 'seeker', // 'seeker' atau 'owner'
   }) {
-    return _client.auth.signUp(email: email, password: password);
+    return _client.auth.signUp(
+      email: email,
+      password: password,
+      data: {'name': name, 'role': role},
+    );
   }
 
   Future<AuthResponse> login({

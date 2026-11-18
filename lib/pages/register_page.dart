@@ -17,6 +17,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final _emailC = TextEditingController();
   final _passC = TextEditingController();
   final _confirmC = TextEditingController();
+  // P9 Praktik 3: nama dan role saat registrasi.
+  final _nameC = TextEditingController();
+  String _role = 'seeker';
   bool _loading = false;
 
   @override
@@ -24,6 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _emailC.dispose();
     _passC.dispose();
     _confirmC.dispose();
+    _nameC.dispose();
     super.dispose();
   }
 
@@ -38,6 +42,8 @@ class _RegisterPageState extends State<RegisterPage> {
       final res = await AuthService.instance.register(
         email: _emailC.text.trim(),
         password: _passC.text,
+        name: _nameC.text.trim(),
+        role: _role,
       );
       if (!mounted) return;
       if (res.session != null) {
@@ -72,6 +78,39 @@ class _RegisterPageState extends State<RegisterPage> {
               padding: const EdgeInsets.all(16),
               children: [
                 const AuthHeader(subtitle: 'Buat akun baru'),
+                TextFormField(
+                  key: const Key('reg_name'),
+                  controller: _nameC,
+                  decoration: const InputDecoration(
+                    labelText: 'Nama',
+                    prefixIcon: Icon(Icons.person_outline),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (v) => (v == null || v.trim().isEmpty)
+                      ? 'Nama wajib diisi'
+                      : null,
+                ),
+                const SizedBox(height: 12),
+                DropdownButtonFormField<String>(
+                  initialValue: _role,
+                  decoration: const InputDecoration(
+                    labelText: 'Daftar sebagai',
+                    prefixIcon: Icon(Icons.badge_outlined),
+                    border: OutlineInputBorder(),
+                  ),
+                  items: const [
+                    DropdownMenuItem(
+                      value: 'seeker',
+                      child: Text('Pencari Kos'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'owner',
+                      child: Text('Pemilik Kos'),
+                    ),
+                  ],
+                  onChanged: (v) => setState(() => _role = v ?? 'seeker'),
+                ),
+                const SizedBox(height: 12),
                 TextFormField(
                   key: const Key('reg_email'),
                   controller: _emailC,
