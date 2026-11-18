@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../firebase_options.dart';
 import '../identity.dart';
 import '../services/auth_service.dart';
+import '../services/notification_service.dart';
 import '../services/profile_service.dart';
 import '../widgets/role_guard.dart';
 import 'kos_form_page.dart';
 import 'kos_list_page.dart';
 import 'login_page.dart';
+import 'notification_page.dart';
 import 'security_test_page.dart';
 
 // P9 Praktik 4: menu dan tombol pada Home berbeda sesuai role.
@@ -27,6 +30,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _profileFuture = ProfileService().getMyProfile();
+    // P9 Praktik 8-10 + Bonus: permission, token, listener, tap handler.
+    if (DefaultFirebaseOptions.isSupported) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await NotificationService.instance.init();
+        await NotificationService.instance.setupInteractedMessage();
+      });
+    }
   }
 
   Future<void> _logout() async {
@@ -101,6 +111,12 @@ class _HomePageState extends State<HomePage> {
                   subtitle: const Text('Khusus pemilik kos'),
                   onTap: () => _open(const KosListPage(onlyMine: true)),
                 ),
+              ListTile(
+                leading: const Icon(Icons.notifications_active),
+                title: const Text('Push Notification (FCM)'),
+                subtitle: const Text('Permission, token, notifikasi diterima'),
+                onTap: () => _open(const NotificationPage()),
+              ),
               ListTile(
                 leading: const Icon(Icons.security),
                 title: const Text('Security Testing (RLS)'),
