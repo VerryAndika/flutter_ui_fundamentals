@@ -4,7 +4,10 @@ import '../identity.dart';
 import '../services/auth_service.dart';
 import '../services/profile_service.dart';
 import '../widgets/role_guard.dart';
+import 'kos_form_page.dart';
+import 'kos_list_page.dart';
 import 'login_page.dart';
+import 'security_test_page.dart';
 
 // P9 Praktik 4: menu dan tombol pada Home berbeda sesuai role.
 //   seeker : Daftar Kos, Detail Kos
@@ -35,9 +38,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _soon(String feature) =>
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('$feature: segera')));
+  void _open(Widget page) =>
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
 
   @override
   Widget build(BuildContext context) {
@@ -90,20 +92,28 @@ class _HomePageState extends State<HomePage> {
                 leading: const Icon(Icons.list_alt),
                 title: const Text('Daftar Kos'),
                 subtitle: const Text('Semua role'),
-                onTap: () => _soon('Daftar Kos'),
+                onTap: () => _open(KosListPage(isAdmin: p.isAdmin)),
               ),
               if (p.isOwner || p.isAdmin)
                 ListTile(
                   leading: const Icon(Icons.home_work),
                   title: const Text('My Kos'),
                   subtitle: const Text('Khusus pemilik kos'),
-                  onTap: () => _soon('My Kos'),
+                  onTap: () => _open(const KosListPage(onlyMine: true)),
                 ),
+              ListTile(
+                leading: const Icon(Icons.security),
+                title: const Text('Security Testing (RLS)'),
+                subtitle: const Text(
+                  'Praktik 6: uji operasi yang harus ditolak',
+                ),
+                onTap: () => _open(const SecurityTestPage()),
+              ),
               if (p.isAdmin)
                 ListTile(
                   leading: const Icon(Icons.admin_panel_settings),
                   title: const Text('Kelola Data (Admin)'),
-                  onTap: () => _soon('Kelola Data'),
+                  onTap: () => _open(const KosListPage(isAdmin: true)),
                 ),
             ],
           ),
@@ -112,7 +122,7 @@ class _HomePageState extends State<HomePage> {
             role: p.role,
             allowed: const ['owner', 'admin'],
             child: FloatingActionButton.extended(
-              onPressed: () => _soon('Tambah Kos'),
+              onPressed: () => _open(const KosFormPage()),
               icon: const Icon(Icons.add_home),
               label: const Text('Tambah Kos'),
             ),
