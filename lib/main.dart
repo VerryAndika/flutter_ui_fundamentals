@@ -18,6 +18,7 @@ import 'pages/debugging_page.dart';
 import 'app_keys.dart';
 import 'pages/auth_gate.dart';
 import 'pages/login_page.dart';
+import 'pages/notification_page.dart';
 import 'pages/practice_page.dart';
 import 'pages/stage_json_pages.dart';
 import 'pages/stage_pages.dart';
@@ -107,6 +108,8 @@ final Map<String, WidgetBuilder> appRoutes = {
   // P9 Praktik 2: Check Session -> Home / Login.
   '/': (_) => const AuthGate(),
   '/courses': (_) => const HomeShell(),
+  // P9 Praktik 8-11: halaman uji FCM (permission, token, notifikasi).
+  '/fcm': (_) => const NotificationPage(),
   '/p5': (_) => const ResponsiveShell(),
   '/p4': (_) => const DashboardPage(),
   '/tahap1': (_) => const Tahap1Page(),

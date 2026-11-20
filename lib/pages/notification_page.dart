@@ -30,6 +30,12 @@ class NotificationPage extends StatelessWidget {
             children: [
               const Text('P9 • $studentId - $studentName'),
               const SizedBox(height: 8),
+              FilledButton.icon(
+                onPressed: n.init,
+                icon: const Icon(Icons.notifications),
+                label: const Text('Aktifkan notifikasi (permission + token)'),
+              ),
+              const SizedBox(height: 8),
               Card(
                 child: ListTile(
                   leading: Icon(
